@@ -1,12 +1,30 @@
 package com.ucla.nesl.lib;
 
-import android.hardware.SensorEvent;
 
-public class UniversalSensorEvent extends SensorEvent{
+
+public class UniversalSensorEvent {
+	int sType;
+
+	public final float[] values;
+
+    /**
+     * The sensor that generated this event. See
+     * {@link android.hardware.SensorManager SensorManager} for details.
+     */
+    public AndroidSensor sensor;
+
+    /**
+     * The accuracy of this event. See {@link android.hardware.SensorManager
+     * SensorManager} for details.
+     */
+    public int accuracy;
+
+    /**
+     * The time in nanosecond at which the event happened
+     */
+    public long timestamp;
 
 	UniversalSensorEvent(int valueSize) {
-		super(valueSize);
-		// TODO Auto-generated constructor stub
+		values = new float[valueSize];
 	}
-
 }

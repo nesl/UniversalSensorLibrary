@@ -1,4 +1,7 @@
 package com.ucla.nesl.aidl;
-interface IUniversalSensorManagerCallback {
-	void pushDouble(int deviceID, int sensor, in double data, long timestamp);
+import com.ucla.nesl.aidl.Device;
+import com.ucla.nesl.aidl.SensorParcel;
+
+interface IUniversalSensorManager {
+	void onSensorChanged(in SensorParcel event);
 }
