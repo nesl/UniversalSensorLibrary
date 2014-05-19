@@ -19,7 +19,7 @@ import com.ucla.nesl.lib.UniversalSensorEvent;
 
 public class UniversalSensorManager {
 	private String UNIVERSALServicePackage = "com.ucla.nesl.universalsensorservice";
-	private String UNIVERSALServiceClass = "com.ucla.nesl.universalsensorservice.UniversalSensorService";
+	private String UNIVERSALServiceClass = "com.ucla.nesl.universalservice.UniversalService";
 	private static UniversalSensorManager mManager = null;
 	private UniversalManagerRemoteConnection remoteConnection;
 	private Context context;
@@ -27,8 +27,11 @@ public class UniversalSensorManager {
 //	private ConnectionCallback cb = new ConnectionCallback();
 
 	public static UniversalSensorManager create(Context context) {
-		if (mManager != null)
+		if (mManager != null) {
+			Log.i(tag, "manager is present");
 			return mManager;
+		}
+		Log.i(tag, "creating a new manager object");
 		mManager = new UniversalSensorManager(context);
 		return mManager;
 	}
@@ -50,7 +53,7 @@ public class UniversalSensorManager {
 	
 	public boolean registerListener(UniversalEventListener mlistener, //UniversalSensor sensor, 
 			String devID, int sType, int rateUs) {
-		remoteConnection.registerListener(new ConnectionCallback(mlistener), "asd", 1, 1);
+		remoteConnection.registerListener(new UniversalSensorManagerStub(mlistener), "asd", 1, 1);
 		return true;
 	}
 	
@@ -66,9 +69,9 @@ public class UniversalSensorManager {
 //		
 //	}
 	
-	class ConnectionCallback extends IUniversalSensorManager.Stub {
+	class UniversalSensorManagerStub extends IUniversalSensorManager.Stub {
 		UniversalEventListener mlistener = null;
-		ConnectionCallback(UniversalEventListener mlistener)
+		UniversalSensorManagerStub(UniversalEventListener mlistener)
 		{
 			this.mlistener = mlistener;
 		}

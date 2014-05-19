@@ -1,17 +1,16 @@
 package com.ucla.nesl.universaldrivermanager;
 
-import com.ucla.nesl.aidl.IUniversalManagerService;
-import com.ucla.nesl.aidl.SensorParcel;
-
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
+import android.os.RemoteException;
+
+import com.ucla.nesl.aidl.Device;
+import com.ucla.nesl.aidl.IUniversalDriverManager;
+import com.ucla.nesl.aidl.SensorParcel;
 
 public class UniversalDriverManager {
 	private String UNIVERSALServicePackage = "com.ucla.nesl.universalsensorservice";
-	private String UNIVERSALServiceClass = "com.ucla.nesl.universalsensorservice.UniversalSensorService";
+	private String UNIVERSALServiceClass = "com.ucla.nesl.universalservice.UniversalService";
 	private Context context;
 	private UniversalDriverRemoteConnection remoteConnection;
 	private static UniversalDriverManager mManager = null;
@@ -37,10 +36,24 @@ public class UniversalDriverManager {
 		return true;
 	}
 
+	public void registerDriver(Device device)
+	{
+		remoteConnection.registerDriver(new UniversalDriverManagerStub(), device);
+	}
+
 	void connectRemote()
 	{
 		Intent intent = new Intent("bindUniversalSensorService");
 		intent.setClassName(UNIVERSALServicePackage, UNIVERSALServiceClass);
 		context.bindService(intent, remoteConnection, Context.BIND_AUTO_CREATE);
+	}
+	
+	public class UniversalDriverManagerStub extends IUniversalDriverManager.Stub {
+
+		@Override
+		public void setRate(int rate) throws RemoteException {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

@@ -7,8 +7,9 @@ import com.ucla.nesl.aidl.SensorParcel;
 
 
 interface IUniversalManagerService {
-	Device[] listDevices();
+	java.util.List<Device> listDevices();
 	boolean registerListener(IUniversalSensorManager mManager, String devID, int sType, int rateUs);
-//	boolean registerDriver(IUniversalDriverManager mDriver, in Device device);
+	String registerDriver(IUniversalDriverManager mDriver, in Device device);
+	void registerDriverSensor(String devID, int sType);
 	void onSensorChanged(in SensorParcel event);
 }

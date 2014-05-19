@@ -7,7 +7,7 @@ import android.os.RemoteException;
 
 import com.ucla.nesl.aidl.Device;
 import com.ucla.nesl.aidl.IUniversalManagerService;
-import com.ucla.nesl.universalsensormanager.UniversalSensorManager.ConnectionCallback;
+import com.ucla.nesl.universalsensormanager.UniversalSensorManager.UniversalSensorManagerStub;
 
 public class UniversalManagerRemoteConnection implements ServiceConnection {
 
@@ -34,10 +34,10 @@ public class UniversalManagerRemoteConnection implements ServiceConnection {
 			mManager.connectRemote();
 			return null;
 		}
-		return service.listDevices();
+		return null;
 	}
 	
-	public void registerListener(ConnectionCallback cb,
+	public void registerListener(UniversalSensorManagerStub cb,
 			String devID, int sType, int rateUs)
 	{
 		try {

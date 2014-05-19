@@ -1,14 +1,20 @@
 package com.ucla.nesl.aidl;
 
+import java.util.ArrayList;
+
+import android.R.integer;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Device implements Parcelable{
-	private String devID;
-	
+	public String devID;
+	public String vendorID;
+	public ArrayList<integer> sensorList;
+
 	public Device()
 	{
 		devID = null;
+		vendorID = null;
 	}
 	
 	public Device(String devID)

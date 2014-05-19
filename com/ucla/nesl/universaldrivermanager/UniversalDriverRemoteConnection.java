@@ -5,8 +5,10 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 
+import com.ucla.nesl.aidl.Device;
 import com.ucla.nesl.aidl.IUniversalManagerService;
 import com.ucla.nesl.aidl.SensorParcel;
+import com.ucla.nesl.universaldrivermanager.UniversalDriverManager.UniversalDriverManagerStub;
 
 public class UniversalDriverRemoteConnection implements ServiceConnection {
 	private IUniversalManagerService service;
@@ -29,6 +31,13 @@ public class UniversalDriverRemoteConnection implements ServiceConnection {
 	{
 		try {
 			service.onSensorChanged(sp);
+		} catch(RemoteException e) {}
+	}
+	
+	void registerDriver(UniversalDriverManagerStub mDriver, Device device)
+	{
+		try {
+			service.registerDriver(mDriver, device);
 		} catch(RemoteException e) {}
 	}
 }
